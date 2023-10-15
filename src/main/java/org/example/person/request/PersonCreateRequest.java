@@ -1,11 +1,10 @@
 package org.example.person.request;
 
-import java.util.Date;
-
 public class PersonCreateRequest {
     private String name;
     private String cpf;
     private String age;
+
     public String getName() {
         return name;
     }

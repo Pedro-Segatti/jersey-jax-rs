@@ -5,16 +5,23 @@ import org.example.person.model.Person;
 import org.example.person.request.PersonCreateRequest;
 import org.example.person.response.PersonCreateResponse;
 
+import java.util.Random;
+
 public class PersonCreateUseCase {
 
-    private PersonMock personMock;
+    private final PersonMock personMock;
 
     public PersonCreateUseCase() {
         this.personMock = new PersonMock();
     }
 
     public PersonCreateResponse createPerson(PersonCreateRequest personRequest) {
-        Person person = personMock.createPersonMock((int)Math.random(), personRequest.getName(), personRequest.getCpf(), personRequest.getAge());
+        Random r = new Random();
+        int low = 10;
+        int high = 100;
+        int result = r.nextInt(high - low) + low;
+
+        Person person = personMock.createPersonMock(result, personRequest.getName(), personRequest.getCpf(), personRequest.getAge());
 
         PersonCreateResponse personCreateResponse = new PersonCreateResponse();
         personCreateResponse.setId(person.getId());

@@ -1,8 +1,8 @@
-package org.example.person.model;
+package org.example.person.response;
 
 import java.util.Date;
 
-public class Person {
+public class PersonUpdateResponse {
 
     private Integer id;
     private String name;
@@ -57,20 +57,5 @@ public class Person {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Person person = (Person) o;
-
-        return id.equals(person.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return id.hashCode();
     }
 }

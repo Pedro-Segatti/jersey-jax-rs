@@ -2,35 +2,32 @@ package org.example.person.service;
 
 import org.example.person.mock.PersonMock;
 import org.example.person.model.Person;
-import org.example.person.request.PersonGetRequest;
 import org.example.person.response.PersonGetResponse;
 
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PersonGetUseCase {
 
-    private PersonMock personMock;
+    private final PersonMock personMock;
 
     public PersonGetUseCase() {
         this.personMock = new PersonMock();
     }
 
-    public PersonGetResponse getPerson(PersonGetRequest personRequest) {
-        Optional<Person> foundPerson = this.personMock.getMockedPersons()
-                .stream()
-                .filter(person -> person.getId().equals(personRequest.getId()))
-                .findFirst();
+    public List<PersonGetResponse> getPerson() {
+        List<PersonGetResponse> personGetResponseList = new ArrayList<PersonGetResponse>();
 
-        PersonGetResponse personGetResponse = new PersonGetResponse();
-        if (foundPerson.isPresent()) {
-            personGetResponse.setId(foundPerson.get().getId());
-            personGetResponse.setName(foundPerson.get().getName());
-            personGetResponse.setCpf(foundPerson.get().getCpf());
-            personGetResponse.setAge(foundPerson.get().getAge);
+        for (Person person : this.personMock.getMockedPersons()) {
+            PersonGetResponse personGetResponse = new PersonGetResponse();
+            personGetResponse.setId(person.getId());
+            personGetResponse.setName(person.getName());
+            personGetResponse.setCpf(person.getCpf());
+            personGetResponse.setAge(person.getAge());
+            personGetResponse.setCreatedAt(person.getCreatedAt());
+            personGetResponse.setUpdatedAt(person.getUpdatedAt());
+            personGetResponseList.add(personGetResponse);
         }
-
-
-        return person;
+        return personGetResponseList;
     }
-
 }

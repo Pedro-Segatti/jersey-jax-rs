@@ -1,14 +1,11 @@
 package org.example.person.request;
 
-import java.util.Date;
-
 public class PersonUpdateRequest {
 
     private Integer id;
     private String name;
     private String cpf;
     private String age;
-    private Date createdAt;
 
     public Integer getId() {
         return id;
@@ -40,13 +37,5 @@ public class PersonUpdateRequest {
 
     public void setAge(String age) {
         this.age = age;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
     }
 }

@@ -13,6 +13,7 @@ import org.example.person.service.PersonCreateUseCase;
 public class PersonCreate {
 
     private final PersonCreateUseCase personCreateUseCase;
+
     public PersonCreate() {
         this.personCreateUseCase = new PersonCreateUseCase();
     }
