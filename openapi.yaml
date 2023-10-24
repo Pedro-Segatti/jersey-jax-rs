@@ -1,0 +1,157 @@
+openapi: 3.0.3
+info:
+  title: Crud Pessoas
+  description: Isso é simplesmente um "CRUD" de Pessoas
+  contact:
+    email: 100749@aluno.uricer.edu.br
+  version: 1.0.11
+servers:
+  - url: http://localhost:8080
+externalDocs:
+  description: GitHub Repository
+  url: https://github.com/Pedro-Segatti/jersey-jax-rs
+paths:
+  /persons:
+    put:
+      tags:
+        - Person
+      summary: Atualiza uma pessoa existente
+      description: Atualiza uma pessoa existente pelo id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonPut'
+        required: true
+      responses:
+        '200':
+          description: Operação realizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonResponse'
+        '404':
+          description: Usuário não encontrado
+    post:
+      tags:
+        - Person
+      summary: Adiciona um novo usuário
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonPost'
+        required: true
+      responses:
+        '200':
+          description: Operação realizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonPostResponse' 
+    get:
+      tags:
+        - Person
+      summary: Lista todos os usuários
+      responses:
+        '200':
+          description: Operação realizada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PersonResponse'          
+  /persons/{id}:
+    delete:
+      tags:
+        - Person
+      summary: Delete um usuário 
+      parameters:
+        - name: id
+          in: path
+          description: ID do usuário para deletar
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Operação realizada com sucesso
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/PersonDeleteResponse' 
+        '404':
+          description: Usuário não encontrado
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/PersonDeleteResponse' 
+components:
+  schemas:
+    PersonPut:
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+          example: 10
+        name:
+          type: string
+          example: doggie
+        cpf:
+          type: string
+          example: 08994789899
+        age:
+          type: string
+          example: 22
+    PersonResponse:
+      properties:
+        id:
+          type: integer
+          example: 10
+        name:
+          type: string
+          example: doggie
+        cpf:
+          type: string
+          example: 08994789899
+        age:
+          type: string
+          example: 22
+        updatedAt:
+          type: object
+        createdAt:
+          type: object
+    PersonPost:
+      properties:
+        name:
+          type: string
+          example: doggie
+        cpf:
+          type: string
+          example: 08994789899
+        age:
+          type: string
+          example: 22
+    PersonPostResponse:
+      properties:
+        name:
+          type: string
+          example: doggie
+        cpf:
+          type: string
+          example: 08994789899
+        age:
+          type: string
+          example: 22
+    PersonDeleteResponse:
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        message:
+          type: string
+          example: "Deu boa dms Kalb"

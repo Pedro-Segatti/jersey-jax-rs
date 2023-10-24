@@ -24,6 +24,9 @@ public class PersonUpdate {
     public Response updatePerson(PersonUpdateRequest PersonUpdateRequest) {
         PersonUpdateResponse personUpdateResponse = this.personUpdateUseCase.updatePerson(PersonUpdateRequest);
 
+        if (personUpdateResponse == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
 
         return Response.ok(personUpdateResponse).build();
     }
