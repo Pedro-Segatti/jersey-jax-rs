@@ -1,14 +1,27 @@
 package org.example.person.model;
 
+
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
+@Entity
+@Table(name = "person")
+public class Person implements Serializable {
 
-public class Person {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column
     private String name;
+    @Column
     private String cpf;
+    @Column
     private String age;
+    @Column
+    @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
+    @Column
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt = new Date();
 
     public Integer getId() {

@@ -1,39 +1,33 @@
 package org.example.person.service;
 
-import org.example.person.mock.PersonMock;
+import org.example.base.CrudService;
 import org.example.person.model.Person;
 import org.example.person.request.PersonUpdateRequest;
 import org.example.person.response.PersonUpdateResponse;
 
 import java.util.Date;
-import java.util.Optional;
 
 public class PersonUpdateUseCase {
 
-    private final PersonMock personMock;
+    private final CrudService crudService;
 
     public PersonUpdateUseCase() {
-        this.personMock = new PersonMock();
+        this.crudService = new CrudService();
     }
 
     public PersonUpdateResponse updatePerson(PersonUpdateRequest personRequest) {
-        Optional<Person> personToUpdate = this.personMock.getMockedPersons().stream().filter(person -> person.getId().equals(personRequest.getId())).findFirst();
 
-        PersonUpdateResponse personUpdateResponse = null;
-        if (personToUpdate.isPresent()) {
-            personUpdateResponse = new PersonUpdateResponse();
+        PersonUpdateResponse personUpdateResponse = new PersonUpdateResponse();
 
-            Person person = personToUpdate.get();
-
-            this.personMock.getMockedPersons().remove(person);
-
+        Person person = this.crudService.find(Person.class, personRequest.getId());
+        if (person != null) {
             person.setName(personRequest.getName());
             person.setCpf(personRequest.getCpf());
-            person.setName(personRequest.getAge());
+            person.setAge(personRequest.getAge());
             person.setUpdatedAt(new Date());
-            this.personMock.getMockedPersons().add(person);
 
-            personUpdateResponse.setId(person.getId());
+            person = this.crudService.save(person);
+
             personUpdateResponse.setName(person.getName());
             personUpdateResponse.setCpf(person.getCpf());
             personUpdateResponse.setAge(person.getAge());

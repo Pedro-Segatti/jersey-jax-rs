@@ -1,27 +1,21 @@
 package org.example.person.service;
 
-import org.example.person.mock.PersonMock;
+import org.example.base.CrudService;
 import org.example.person.model.Person;
 import org.example.person.request.PersonCreateRequest;
 import org.example.person.response.PersonCreateResponse;
 
-import java.util.Random;
-
 public class PersonCreateUseCase {
 
-    private final PersonMock personMock;
+    private final CrudService crudService;
 
     public PersonCreateUseCase() {
-        this.personMock = new PersonMock();
+        this.crudService = new CrudService();
     }
 
     public PersonCreateResponse createPerson(PersonCreateRequest personRequest) {
-        Random r = new Random();
-        int low = 10;
-        int high = 100;
-        int result = r.nextInt(high - low) + low;
-
-        Person person = personMock.createPersonMock(result, personRequest.getName(), personRequest.getCpf(), personRequest.getAge());
+        Person person = createPerson(personRequest.getName(), personRequest.getCpf(), personRequest.getAge());
+        person = crudService.save(person);
 
         PersonCreateResponse personCreateResponse = new PersonCreateResponse();
         personCreateResponse.setId(person.getId());
@@ -33,4 +27,12 @@ public class PersonCreateUseCase {
         return personCreateResponse;
     }
 
+    public Person createPerson(String name, String cpf, String age) {
+        Person person = new Person();
+        person.setName(name);
+        person.setCpf(cpf);
+        person.setAge(age);
+
+        return person;
+    }
 }
