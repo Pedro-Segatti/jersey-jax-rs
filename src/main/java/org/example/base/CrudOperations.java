@@ -1,7 +1,6 @@
 package org.example.base;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import java.io.Serializable;
 import java.util.List;
 
